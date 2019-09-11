@@ -96,34 +96,7 @@ if (isset($_POST['username'])   &&  isset($_POST['email'])  &&  isset($_POST['ps
 
     }
 }
-// session_start();
-// require('config.php');
-// if (isset($_POST['username'])   &&  isset($_POST['email'])  &&  isset($_POST['psw'])   &&  isset($_POST['psw-repeat']) && isset($_POST['phone_number'])) {
-//     # code...
-//     $username=$_POST['username'];
-//     $email=$_POST['email'];
-//     $psw=$_POST['psw'];
-//     $phone_number=$_POST['phone_number'];
-//     $re_psw=$_POST['psw-repeat'];
 
-//     if($psw == $re_psw)
-//     {
-//         $query="INSERT INTO users(username,password,email,phone_number) values (:username,:password,:email,:phone_number)";
-//         $stmt=$conn->prepare($query);
-//        if($stmt->execute([':username'=>$name, ':psw'=>$psw ,':email'=>$email, ':phone_number'=>$phone_number]))
-//        {
-//            echo 'data inserted successfully ';
-//            header('Location:display.php');
-
-//        }
-//     }
-//     else
-//     {
-//         echo"password does not match";
-
-//     }  
-    
-// }
 ?>
 <form method="post" action="">
     <div class="container">
