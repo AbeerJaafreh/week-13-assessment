@@ -66,14 +66,76 @@
        <li>After submission, the page should be redirect to new page.</li>
        <li>The new page should display, "Hello (username)" </li>
 </ul>
-<form>
+
+<?php
+
+session_start();
+require('config.php');
+$msg='';
+
+if (isset($_POST['username'])   &&  isset($_POST['email'])  &&  isset($_POST['psw'])   &&  isset($_POST['psw-repeat'])) {
+    $name=$_POST['name'];
+    $email=$_POST['email'];
+    $password=md5($_POST['psw']);
+    $re_password=md5($_POST['psw-repeat']);
+    $phone_number=($_POST['phone_number']);
+
+
+    if($password == $re_password)
+    {
+        $query="INSERT INTO users(username,email,password,phone_number) values (:username,:email,:password,:phone_number)";
+        $stmt=$conn->prepare($query);
+       if($stmt->execute([':username'=>$name, ':email'=>$email, ':password'=>$password , ':phone_number'=>$phone_number]))
+       {
+           $msg='data inserted successfully ';
+       }
+    }
+    else
+    {
+        echo"password does not match";
+
+    }
+}
+// session_start();
+// require('config.php');
+// if (isset($_POST['username'])   &&  isset($_POST['email'])  &&  isset($_POST['psw'])   &&  isset($_POST['psw-repeat']) && isset($_POST['phone_number'])) {
+//     # code...
+//     $username=$_POST['username'];
+//     $email=$_POST['email'];
+//     $psw=$_POST['psw'];
+//     $phone_number=$_POST['phone_number'];
+//     $re_psw=$_POST['psw-repeat'];
+
+//     if($psw == $re_psw)
+//     {
+//         $query="INSERT INTO users(username,password,email,phone_number) values (:username,:password,:email,:phone_number)";
+//         $stmt=$conn->prepare($query);
+//        if($stmt->execute([':username'=>$name, ':psw'=>$psw ,':email'=>$email, ':phone_number'=>$phone_number]))
+//        {
+//            echo 'data inserted successfully ';
+//            header('Location:display.php');
+
+//        }
+//     }
+//     else
+//     {
+//         echo"password does not match";
+
+//     }  
+    
+// }
+?>
+<form method="post" action="">
     <div class="container">
         <h1>Register</h1>
         <p>Please fill in this form to create an account.</p>
         <hr>
+        <form action="">
+        <label for="email"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
 
         <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
+        <input type="text" placeholder="Email" name="email" required>
 
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
@@ -81,15 +143,14 @@
         <label for="psw-repeat"><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Email" name="email" required>
-
+       
         <label for="phone-number"><b>Phone Number</b></label>
         <input type="text" placeholder="phone-number" name="phone-number" required>
         <hr>
 
         <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-        <button type="submit" class="registerbtn">Register</button>
+        <button type="submit" class="registerbtn" name="submit">Register</button>
+        </form>
     </div>
 
     <div class="container signin">
